@@ -1,4 +1,4 @@
-FROM php:7.4.5-fpm-alpine3.11
+FROM php:7.4.8-fpm-alpine
 
 LABEL maintainer="Ric Harvey <ric@ngd.io>"
 
@@ -6,7 +6,7 @@ ENV php_conf /usr/local/etc/php-fpm.conf
 ENV fpm_conf /usr/local/etc/php-fpm.d/www.conf
 ENV php_vars /usr/local/etc/php/conf.d/docker-vars.ini
 
-ENV NGINX_VERSION 1.16.1
+ENV NGINX_VERSION 1.18.0
 ENV LUA_MODULE_VERSION 0.10.14
 ENV DEVEL_KIT_MODULE_VERSION 0.3.0
 ENV GEOIP2_MODULE_VERSION 3.2
@@ -180,6 +180,7 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     git \
     python3 \
     python3-dev \
+    py3-pip \
     augeas-dev \
     libressl-dev \
     ca-certificates \
