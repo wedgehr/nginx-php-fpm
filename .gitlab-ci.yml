@@ -4,7 +4,6 @@ services:
 stages:
   - buildx
   - build_latest
-  - container_scanning
 
 buildx:
   image: docker:19.03-git
