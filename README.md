@@ -14,6 +14,9 @@ If you have improvements or suggestions please open an issue or pull request on 
 |-----|-------|-----|--------|--------|
 | latest/1.10.0 | Master Branch |1.18.0 | 7.4.8 | 3.12 |
 
+
+_Note:_ The image is now aviable on x86_64 and Arm systems!
+
 For other tags please see: [versioning](https://gitlab.com/ric_harvey/nginx-php-fpm/blob/master/docs/versioning.md)
 
 ### Links
