@@ -21,7 +21,7 @@ For other tags please see: [versioning](https://gitlab.com/ric_harvey/nginx-php-
 
 ### Links
 - [https://gitlab.com/ric_harvey/nginx-php-fpm](https://gitlab.com/ric_harvey/nginx-php-fpm)
-- [https://registry.hub.docker.com/u/richarvey/nginx-php-fpm/](https://registry.hub.docker.com/u/richarvey/nginx-php-fpm/)
+- [https://hub.docker.com/repository/docker/richarvey/nginx-php-fpm](https://hub.docker.com/repository/docker/richarvey/nginx-php-fpm)
 
 ## Quick Start
 To pull from docker hub:
