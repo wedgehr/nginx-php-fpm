@@ -20,7 +20,8 @@ The latest tag will always follow the master branch in git. the other versions w
 | 1.9.0 | 7.4.2 |1.16.1 | 3.11 | 0.3.13 | upgrade to PHP 7.4.2 |
 | 1.9.1 | 7.4.5 |1.16.1 | 3.11 | 0.3.13 | upgrade to PHP 7.4.5 |
 | 1.10.0 | 7.4.8 |1.18.0 | 3.12 | 0.3.13 | PHP 7.4.8 + Nginx 1.18.0 + arm builds |
-| 1.10.0 | 7.4.9 |1.18.0 | 3.12 | 0.3.13 | bump to PHP 7.4.9 |
+| 1.10.1 | 7.4.9 |1.18.0 | 3.12 | 0.3.13 | bump to PHP 7.4.9 |
+| 1.10.2 | 7.4.9 |1.18.0 | 3.12 | 0.3.13 | Swap Docker file from ADD to COPY |
 
 These tags will be created on GitLab and as tags in docker hub.
 
