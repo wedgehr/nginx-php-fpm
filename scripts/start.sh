@@ -212,14 +212,15 @@ if [[ "$RUN_SCRIPTS" == "1" ]] ; then
 fi
 
 if [ -z "$SKIP_COMPOSER" ]; then
+    # Allow nginx user to call composer closes #169
     # Try auto install for composer
     if [ -f "/var/www/html/composer.lock" ]; then
         if [ "$APPLICATION_ENV" == "development" ]; then
-            composer global require hirak/prestissimo
-            composer install --working-dir=/var/www/html
+            su - nginx -c 'composer global require hirak/prestissimo'
+            su - nginx -c 'composer install --working-dir=/var/www/html'
         else
-            composer global require hirak/prestissimo
-            composer install --no-dev --working-dir=/var/www/html
+            su - nginx -c 'composer global require hirak/prestissimo'
+            su - nginx -c 'composer install --no-dev --working-dir=/var/www/html'
         fi
     fi
 fi

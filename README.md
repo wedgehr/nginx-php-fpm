@@ -10,7 +10,7 @@ If you have improvements or suggestions please open an issue or pull request on 
 ### Versioning
 | Docker Tag | Git Release | Nginx Version | PHP Version | Alpine Version |
 |-----|-------|-----|--------|--------|
-| latest/1.10.2 | Master Branch |1.18.0 | 7.4.9 | 3.12 |
+| latest/1.10.3 | Master Branch |1.18.0 | 7.4.9 | 3.12 |
 
 
 _Note:_ The image is now aviable on x86_64 and Arm systems!
