@@ -23,6 +23,7 @@ The latest tag will always follow the master branch in git. the other versions w
 | 1.10.1 | 7.4.9 |1.18.0 | 3.12 | 0.3.13 | bump to PHP 7.4.9 |
 | 1.10.2 | 7.4.9 |1.18.0 | 3.12 | 0.3.13 | Swap Docker file from ADD to COPY |
 | 1.10.3 | 7.4.9 |1.18.0 | 3.12 | 0.3.14 | run composer as non root user |
+| 1.10.4 | 7.4.10 |1.18.0 | 3.12 | 0.3.14 | PHP 7.4.10, devel_kit and mod lua updated |
 
 These tags will be created on GitLab and as tags in docker hub.
 
