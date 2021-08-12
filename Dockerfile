@@ -73,7 +73,7 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --quiet --install-dir=/usr/bin --filename=composer \
     && rm composer-setup.php \
-    && apk del .build-deps autoconf gcc zlib-dev libpng-dev libjpeg-turbo-dev freetype-dev postgresql-dev libxslt-dev gd-dev musl-dev libzip-dev
+    && apk del .build-deps musl-dev linux-headers libffi-dev make autoconf gcc
 
 
 COPY conf/supervisord.conf /etc/supervisord.conf
