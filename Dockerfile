@@ -28,6 +28,7 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     && echo /etc/apk/respositories \
     && apk update && apk upgrade \
     && apk add --no-cache \
+    nginx \
     wget \
     supervisor \
     curl \
@@ -66,14 +67,14 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     && pecl install -o -f redis \
     && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini \
     && docker-php-source delete \
-    && mkdir -p /etc/nginx \
+    && mkdir -p /etc/nginx/conf.d \
     && mkdir -p /var/www/app \
     && mkdir -p /run/nginx \
     && mkdir -p /var/log/supervisor \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --quiet --install-dir=/usr/bin --filename=composer \
     && rm composer-setup.php \
-    && apk del .build-deps musl-dev linux-headers libffi-dev make autoconf gcc
+    && apk del .build-deps musl-dev linux-headers libffi-dev autoconf gcc
 
 
 COPY conf/supervisord.conf /etc/supervisord.conf
