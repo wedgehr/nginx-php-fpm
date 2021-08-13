@@ -121,7 +121,8 @@ RUN echo "cgi.fix_pathinfo=0" > ${php_vars} &&\
 # copy in code
 COPY src/ /var/www/html/
 COPY errors/ /var/www/errors
-COPY scripts/ /scripts
+COPY scripts/boot.sh scripts/start.sh /.
+RUN chmod 750 /start.sh /boot.sh
 
 EXPOSE 80
 

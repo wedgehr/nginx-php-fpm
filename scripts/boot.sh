@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # https://sipb.mit.edu/doc/safe-shell/
-set -ef -o pipefail
+set -e -o pipefail
 
 # Prevent config files from being filled to infinity by force of stop and restart the container
 lastlinephpconf="$(grep "." /usr/local/etc/php-fpm.conf | tail -1)"
@@ -82,14 +82,9 @@ else
 fi
 
 # Run custom scripts
-if [[ "$RUN_SCRIPTS" == "1" ]] ; then
-  if [ -d "/var/www/html/scripts/" ]; then
-    # make scripts executable incase they aren't
-    chmod -Rf 750 /var/www/html/scripts/*; sync;
-    # run scripts in number order
-    for i in `ls /var/www/html/scripts/`; do /var/www/html/scripts/$i ; done
-  else
-    echo "Can't find script directory"
-  fi
+if [ -d "/scripts" ]; then
+  # make scripts executable incase they aren't
+  chmod -Rf 750 /scripts/*; sync;
+  # run scripts in number order
+  for i in `ls /scripts/`; do /scripts/$i ; done
 fi
-
