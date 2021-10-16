@@ -1,12 +1,10 @@
-FROM php:8.0.9-fpm-alpine
+FROM php:8.0.11-fpm-alpine
 
 LABEL maintainer="Patrick McCarren <patrick@wedgehr.com>"
 
 ENV php_conf /usr/local/etc/php-fpm.conf
 ENV fpm_conf /usr/local/etc/php-fpm.d/www.conf
 ENV php_vars /usr/local/etc/php/conf.d/docker-vars.ini
-
-ENV CADDY_VERSION 2.4.3
 
 # resolves #166
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
@@ -49,6 +47,7 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     libxslt-dev \
     musl-dev \
     libzip-dev \
+    gmp-dev \
     && docker-php-ext-configure gd \
       --with-freetype \
       --with-jpeg \
@@ -57,6 +56,7 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
         pgsql \
         pdo_pgsql \
         gd \
+        gmp \
         exif \
         intl \
         xsl \
