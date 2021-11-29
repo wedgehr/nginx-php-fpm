@@ -1,4 +1,4 @@
-FROM php:8.0.11-fpm-alpine
+FROM php:8.0.13-fpm-alpine3.14
 
 LABEL maintainer="Patrick McCarren <patrick@wedgehr.com>"
 
@@ -23,9 +23,13 @@ RUN addgroup -S nginx \
 
 # note: json extension is installed in php 8.0 by default, so no need to add
 RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories \
-    && echo /etc/apk/respositories \
+    && echo @community http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories \
+    && echo /etc/apk/repositories \
+	&& cat /etc/apk/repositories \
     && apk update && apk upgrade \
     && apk add --no-cache \
+	age@community \
+    sops@testing \
     nginx \
     wget \
     supervisor \
@@ -75,7 +79,6 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     && php composer-setup.php --quiet --install-dir=/usr/bin --filename=composer \
     && rm composer-setup.php \
     && apk del .build-deps musl-dev linux-headers libffi-dev autoconf gcc
-
 
 COPY conf/supervisord.conf /etc/supervisord.conf
 
