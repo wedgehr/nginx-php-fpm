@@ -28,8 +28,6 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
 	&& cat /etc/apk/repositories \
     && apk update && apk upgrade \
     && apk add --no-cache \
-	age@community \
-    sops@testing \
     nginx \
     wget \
     supervisor \
@@ -52,6 +50,9 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     musl-dev \
     libzip-dev \
     gmp-dev \
+	age@community \
+    sops@testing \
+	yq@community \
     && docker-php-ext-configure gd \
       --with-freetype \
       --with-jpeg \
