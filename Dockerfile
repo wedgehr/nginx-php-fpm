@@ -1,10 +1,10 @@
-FROM php:8.1.8-fpm-alpine3.16
+FROM php:8.4.10-fpm-alpine3.21 AS builder
 
 LABEL maintainer="Patrick McCarren <patrick@wedgehr.com>"
 
-ENV php_conf /usr/local/etc/php-fpm.conf
-ENV fpm_conf /usr/local/etc/php-fpm.d/www.conf
-ENV php_vars /usr/local/etc/php/conf.d/docker-vars.ini
+ENV php_conf=/usr/local/etc/php-fpm.conf
+ENV fpm_conf=/usr/local/etc/php-fpm.d/www.conf
+ENV php_vars=/usr/local/etc/php/conf.d/docker-vars.ini
 
 RUN addgroup -S nginx \
   && adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx \
@@ -33,12 +33,14 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
   make \
   gcc \
   autoconf \
+  linux-headers \
   bash \
   gnupg \
   zlib-dev \
-  libpng-dev \
-  libjpeg-turbo-dev \
   gd-dev \
+  libpng-dev \
+  libwebp-dev \
+  libjpeg-turbo-dev \
   freetype-dev \
   freetype \
   postgresql-dev \
@@ -49,28 +51,33 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
   oniguruma-dev \
   age@community \
   sops@testing \
-  yq@community \
-  && docker-php-ext-configure gd \
+  yq@community
+
+RUN docker-php-ext-install bcmath
+RUN docker-php-ext-install pgsql
+RUN docker-php-ext-install pdo_pgsql
+RUN docker-php-ext-install gmp
+RUN docker-php-ext-install exif
+RUN docker-php-ext-install intl
+RUN docker-php-ext-install xsl
+RUN docker-php-ext-install soap
+RUN docker-php-ext-install dom
+RUN docker-php-ext-install zip
+RUN docker-php-ext-install opcache
+RUN docker-php-ext-install sockets
+RUN docker-php-ext-install mbstring
+
+RUN pecl install -o -f redis \
+  && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini \
+  && docker-php-source delete
+
+RUN docker-php-ext-configure gd \
   --with-freetype \
   --with-jpeg \
-  && docker-php-ext-install \
-  pgsql \
-  pdo_pgsql \
-  gd \
-  gmp \
-  exif \
-  intl \
-  xsl \
-  soap \
-  dom \
-  zip \
-  opcache \
-  sockets \
-  mbstring \
-  && pecl install -o -f redis \
-  && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini \
-  && docker-php-source delete \
-  && mkdir -p /etc/nginx/conf.d \
+  --with-webp \
+  && docker-php-ext-install -j$(nproc) gd
+
+RUN mkdir -p /etc/nginx/conf.d \
   && mkdir -p /var/www/app \
   && mkdir -p /run/nginx \
   && mkdir -p /var/log/supervisor \
@@ -121,6 +128,9 @@ RUN echo "cgi.fix_pathinfo=0" > ${php_vars} &&\
 #    ln -s /etc/php7/php.ini /etc/php7/conf.d/php.ini && \
 #    find /etc/php7/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
 
+
+FROM php:8.4.10-fpm-alpine3.21 AS base
+COPY --from=builder / /
 
 # copy in code
 COPY src/ /var/www/html/
